@@ -120,9 +120,8 @@ public class NetUtils {
      */
     public static Response requestViaSocket(String path) {
         BufferedReader br = null;
-        Socket s;
         try {
-            s = new Socket(QOS_HOST, QOS_PORT);
+            Socket s = new Socket(QOS_HOST, QOS_PORT);
             PrintWriter pw = new PrintWriter(s.getOutputStream());
             pw.println("GET " + path + " HTTP/1.1");
             pw.println("Host: " + QOS_HOST + ":" + QOS_PORT);
@@ -142,12 +141,10 @@ public class NetUtils {
                 }
             }
             String result = sb.toString().trim();
-            s.close();
             return new Response(result);
         } catch (Exception e) {
             return new Response(e.getMessage(), false);
         } finally {
-            s.close();
             if (br != null) {
                 try {
                     br.close();
